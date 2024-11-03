@@ -1,0 +1,35 @@
+name: Playwright Tests
+
+on:
+  workflow_dispatch:   # Allows manual triggering of the workflow
+  schedule:
+    - cron: '45 23 * * *'  # Optional: Run daily at 11:45 PM UTC (5 AM IST)
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'  # Set the version of Java you want to use
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository  # Path to the Maven repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}  # Cache key based on OS and pom.xml hash
+          restore-keys: |
+            ${{ runner.os }}-maven-  # Fallback key
+
+      - name: Install dependencies
+        run: |
+          ./mvnw install  # Use the appropriate command to install your dependencies
+
+      - name: Run Playwright tests
+        run: |
+          ./mvnw test  # Adjust this command according to your test setup
