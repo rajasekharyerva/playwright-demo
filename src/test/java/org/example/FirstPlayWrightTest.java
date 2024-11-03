@@ -1,18 +1,19 @@
 package org.example;
 
 import com.microsoft.playwright.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 
-public class SampleTest {
+public class FirstPlayWrightTest {
     @Test
-    public void sampleTest() {
+    public void firstTest() {
         try (Playwright playwright = Playwright.create()) {
             Browser browser = playwright.chromium().launch(createLaunchOptions());
             Page page = browser.newPage();
-            page.navigate("http://playwright.dev");
-            System.out.println(page.title());
+            page.navigate("https://playwright.dev/");
+            page.screenshot(new Page.ScreenshotOptions().setPath(Paths.get("example.png")));
         }
     }
 
