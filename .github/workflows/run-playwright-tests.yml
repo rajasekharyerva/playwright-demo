@@ -29,10 +29,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-  # Fallback key
 
-      - name: Install dependencies
-        run: |
-          ./mvnw install  # Use the appropriate command to install your dependencies
-
       - name: Run Playwright tests
         run: |
-          ./mvnw test  # Adjust this command according to your test setup
+          mvn test  # Adjust this command according to your test setup
