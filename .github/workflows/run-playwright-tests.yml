@@ -17,6 +17,9 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '17'  # Set the version of Java you want to use
+          distribution: 'adopt' # Specify the JDK distribution
+          check-latest: false  # Set to true if you want to always use the latest version
+
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
